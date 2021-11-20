@@ -1,0 +1,73 @@
+#!/usr/bin/env ruby
+
+require 'set'
+
+# Courtesy https://stackoverflow.com/questions/13866141/how-to-generate-pages-for-each-tag-in-nanoc
+# (but updated for Nanoc 4.x)
+preprocess do
+  # Collect all tags
+  tags = Set.new
+  @items
+    .filter { |item| !item[:tags].nil? }
+    .each do |item|
+      item[:tags].each do |tag|
+        tags.add(tag.downcase)
+      end
+    end
+
+  # Generate items
+  tags.each do |tag|
+    @items.create("", { :tag => tag, :title => tag }, "/tags/#{tag}")
+  end
+end
+
+compile '/feed.erb' do
+  filter :erb
+  write '/feed.xml'
+end
+
+compile '/tags/*' do
+  filter :erb, trim_mode: '-'
+  layout '/tag.*'
+  write item.identifier.to_s + '/index.html'
+end
+
+compile '/**/*.html' do
+  filter :erb, trim_mode: '-'
+
+  layout '/default.*'
+
+  if item.identifier =~ '**/index.*'
+    write item.identifier.to_s
+  else
+    write item.identifier.without_ext + '/index.html'
+  end
+end
+
+compile '/**/*.md' do
+  filter :kramdown
+  layout '/default.*'
+
+  if item.identifier =~ '**/index.*'
+    write item.identifier.to_s
+  else
+    write item.identifier.without_ext + '/index.html'
+  end
+end
+
+compile '/**/*.erb' do
+  filter :erb, trim_mode: '-'
+  layout '/default.*'
+
+  if item.identifier =~ '**/index.*'
+    write item.identifier.to_s
+  else
+    write item.identifier.without_ext + '/index.html'
+  end
+end
+
+compile '/**/*' do
+  write item.identifier.to_s
+end
+
+layout '/**/*', :erb, trim_mode: '-'

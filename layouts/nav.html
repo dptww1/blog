@@ -1,0 +1,35 @@
+<div class="navContainer">
+  <div class="nav">
+    <p class="navListHeader"><a href="/">Home</a></p>
+
+    <p class="navListHeader">My Games</p>
+    <ul>
+      <li><a href="https://www.boardgamegeek.com/boardgame/184866/wings-for-the-baron-second-edition">Wings for the Baron</a></li>
+    </ul>
+
+    <p class="navListHeader">My Game Support Pages</p>
+    <ul>
+      <li><a href="http://www.davetownsend.org/BlueVsGray/Tracker/">Blue vs Gray Tracker</a></li>
+      <li><a href="http://www.davetownsend.org/ChroniclesOfCrime/">Chronicles of Crime Notepad</a></li>
+      <li><a href="http://www.davetownsend.org/Battles/lotr.html">SBG Battle Reports</a></li>
+      <li><a href="https://www.sbginventory.com/">SBG Inventory</a></li>
+    </ul>
+
+    <p class="navListHeader">My Random Stuff</p>
+    <ul>
+      <li><a href="https://github.com/dptww1">GitHub</a></li>
+      <li><a href="http://www.davetownsend.org/WW1AirMap2/">WW1 Squadron Locations</a></li>
+    </ul>
+
+    <p class="navListHeader">Tags</p>
+    <%
+      @sorted_items = @items
+        .filter { |x| !x[:tag].nil? }
+        .sort { |a,b| a[:title] <=> b[:title] }
+
+      @sorted_items.each_with_index do |x, i|
+    %>
+      <a href="<%= x.path %>"><%= x[:title] %></a><%= i < @sorted_items.size - 1 ? ", " : "" %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<%= render '/head.*' %>
+<body>
+  <%= render "/content_header.*" %>
+
+  <div class="bodyLayoutContainer">
+
+    <%= render '/nav.*' %>
+
+    <div id='main'>
+      <h2>Content Tagged With '<%= @item[:title].upcase %>'</h2>
+
+      <%= render "/post_list.html", post_list: items_with_tag(@item[:tag]) %>
+    </div>
+  </div>
+</body>
+</html>

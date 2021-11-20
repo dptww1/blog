@@ -1,0 +1,16 @@
+<%# Expected parameter: `post_list` - iterable collection of posts to render %>
+
+<ul class="postList">
+<% post_list.each do |a| %>
+  <li class="postListItem">
+    <span class="postListItemTitle"><%= link_to(a[:title], a) %></span>
+    <span class="postListItemDate"><%= a[:date] %></span>
+    <br>
+    <span class="postListItemDescription">
+      <% if a[:description] %>
+        <%= a[:description] %>
+      <% end %>
+    </span>
+  </li>
+<% end %>
+</ul>

@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<%= render "/head.*" %>
+<body>
+  <%= render "/content_header.*" %>
+
+  <div class="bodyLayoutContainer">
+
+    <%= render "/nav.*" %>
+
+    <div id="main">
+      <%= yield %>
+
+      <% if @item[:date] %>
+        <div class="publishDate"><%= @item[:date] %></div>
+      <% end %>
+
+      <% if tags_for(@item, none_text: nil) %>
+        <div class="tags">Tags: <%= tags_for(@item, base_url: "/tags/") %></div>
+      <% end %>
+    </div>
+
+  </div>
+
+  <% if @item[:footer_js] %>
+    <script src="<%= @item[:footer_js] %>" type="module"></script>
+  <% end -%>
+</body>
+</html>

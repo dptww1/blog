@@ -1,0 +1,28 @@
+<head>
+  <meta charset="utf-8">
+  <title>Unfinished Tales - <%= @item[:title] %></title>
+  <link rel="stylesheet" href="/css/styles.css">
+
+  <% if @item[:extra_css] %>
+    <% @item[:extra_css].each do |name| %>
+      <link rel="stylesheet" href="<%= name %>">
+    <% end %>
+  <% end %>
+
+  <% if @item[:use_mithril] %>
+    <%= use_mithril %>
+  <% end %>
+
+  <% if @item[:jsdb] %>
+    <script>
+      var db = <%= use_jsdb %>
+    </script>
+  <% end %>
+
+  <% if @item[:extra_js] %>
+    <% @item[:extra_js].each do |name| %>
+      <script src="<%= name %>"></script>
+    <% end %>
+  <% end %>
+  <meta name="generator" content="Nanoc <%= Nanoc::VERSION %>">
+</head>

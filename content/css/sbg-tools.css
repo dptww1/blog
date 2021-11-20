@@ -1,0 +1,17 @@
+.filterSelectPanel {
+  display: none;
+}
+
+.factionMenu::before {
+  content: "▶ ";
+  font-size: 75%;
+}
+
+.factionMenu.selected::before {
+  content: "▼ ";
+  font-size: 75%;
+}
+
+input.factionCheckbox {
+  margin-left: 1.5em;
+}
